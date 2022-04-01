@@ -1,70 +1,95 @@
-# Getting Started with Create React App
+# Enki-sdk react example
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## How to use the library
 
-## Available Scripts
+## Required Values
 
-In the project directory, you can run:
+- API key
+- Element Id
+- Application ID
 
-### `npm start`
+## Optional Values
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Endpoint (optional)
+- Profile (optional)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Install the SDK
 
-### `npm test`
+Install enki-sdk using **npm**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+npm install enki-sdk
+```
 
-### `npm run build`
+or through **yarn**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+yard add enki-sdk
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Import and Consume
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**For importing we have 2 Ways:**
 
-### `npm run eject`
+**1. Through direct function call**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Import function
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+import {getHydratedConfigs} from "enki-sdk"
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Add this piece to your code to fetch configs
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+const data = await getHydratedConfigs("<Your API Key>","<Element ID>","<Application ID>","<Profile 'Optional!'>","<Endpoint 'Optional!'>'")
+```
 
-## Learn More
+- To see fetched data you can write
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+console.log(data)
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**2. Through default module EnkiSDK**
 
-### Code Splitting
+- Import default module
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```
+import EnkiSDK from 'enki-sdk'
+```
 
-### Analyzing the Bundle Size
+- Initialize object
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```
+const enkiSdkObject = new EnkiSDK("<Your API Key>","<Application ID>","<Profile 'Optional!'>","<Endpoint 'Optional!'>'")
+```
 
-### Making a Progressive Web App
+- Use the following to fetch configs
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```
+const data = enkiSdkObject.getHydratedConfigs("<Element ID>")
+```
 
-### Advanced Configuration
+## Output
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+When using `console.log(data)` the returned data object is going to be in the following shape which allows you to map and consume easily in your system:
 
-### Deployment
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Returned Object
 
-### `npm run build` fails to minify
+{
+    elementId: '<Element ID>',
+    data: [An Array of Configs]
+}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Configs Array sturcture
+{
+    key: '<Key Name>',
+    value: {
+        value: '<Config Value>',
+        datatype: '<Data type of this value>'
+    }
+}
+```
