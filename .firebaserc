@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "enki-ui"
+  },
+  "targets": {
+    "enki-ui": {
+      "hosting": {
+        "enki-ui": [
+          "enkisdk-react-example"
+        ]
+      }
+    }
+  }
+}

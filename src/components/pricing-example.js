@@ -1,8 +1,8 @@
 import React from "react";
+import { toArray } from "./utils";
 
-const toArray = (stringArray) => stringArray?.replace(/\[|\]/g, "").split(",");
 
-const PricingExample = ({ setMonthlyPlan, monthlyPlan, pricingData }) => {
+const PricingExample = ({ setMonthlyPlan, monthlyPlan, pricingData, settings }) => {
   return (
     <div>
       <header className="bg-black mb-8">
@@ -62,7 +62,8 @@ const PricingExample = ({ setMonthlyPlan, monthlyPlan, pricingData }) => {
         <p className="max-w-lg mx-auto mb-6 font-light text-center text-grey-dark text-xl">
           {pricingData?.description}
         </p>
-        <div className="flex justify-center my-4">
+{
+  settings?.pricingToggle&&        <div className="flex justify-center my-4">
           <label
             className="form-check-label inline-block text-gray-800 mx-2"
             htmlFor=""
@@ -88,6 +89,7 @@ const PricingExample = ({ setMonthlyPlan, monthlyPlan, pricingData }) => {
             Yearly
           </label>
         </div>
+      }
         {/* pricing cards container */}
         <div className="flex flex-wrap -mx-2 mb-8 justify-center">
           {/* Single card */}
@@ -107,7 +109,12 @@ const PricingExample = ({ setMonthlyPlan, monthlyPlan, pricingData }) => {
                 </p>
                 <strong>Includes:</strong>
                 <ul className="list-reset mb-4">
-                  {toArray(pricingData?.freeFeatures)?.map((item, index) => (
+                {pricingData?.commonFeatures&&toArray(pricingData?.commonFeatures)?.map((item, index) => (
+                    <li key={index} className="mb-2">
+                      {item}
+                    </li>
+                  ))}
+                  {(pricingData&&pricingData?.freeFeatures)&&toArray(pricingData?.freeFeatures)?.map((item, index) => (
                     <li key={index} className="mb-2">
                       {item}
                     </li>
@@ -116,7 +123,7 @@ const PricingExample = ({ setMonthlyPlan, monthlyPlan, pricingData }) => {
               </div>
               <button
                 type="button"
-                className="p-3 text-indigo text-lg font-bold hover:text-white hover:bg-blue"
+                className="p-3 text-indigo text-lg font-bold hover:text-black hover:bg-gray-200"
               >
                 {pricingData?.freeButton}
               </button>
@@ -140,7 +147,12 @@ const PricingExample = ({ setMonthlyPlan, monthlyPlan, pricingData }) => {
                 </p>
                 <strong>Includes:</strong>
                 <ul className="list-reset mb-4">
-                  {toArray(pricingData?.proFeatures)?.map((item, index) => (
+                {pricingData?.commonFeatures&&toArray(pricingData?.commonFeatures)?.map((item, index) => (
+                    <li key={index} className="mb-2">
+                      {item}
+                    </li>
+                  ))}
+                  {(pricingData&&pricingData?.proFeatures)&&toArray(pricingData?.proFeatures)?.map((item, index) => (
                     <li key={index} className="mb-2">
                       {item}
                     </li>
@@ -149,7 +161,7 @@ const PricingExample = ({ setMonthlyPlan, monthlyPlan, pricingData }) => {
               </div>
               <button
                 type="button"
-                className="p-3 text-indigo text-lg font-bold hover:text-white hover:bg-blue"
+                className="p-3 text-indigo text-lg font-bold hover:text-black hover:bg-gray-200"
               >
                 {pricingData?.proButton}
               </button>
@@ -173,7 +185,12 @@ const PricingExample = ({ setMonthlyPlan, monthlyPlan, pricingData }) => {
                 </p>
                 <strong>Includes:</strong>
                 <ul className="list-reset mb-4">
-                  {toArray(pricingData?.enterpriseFeatures)?.map(
+                {pricingData?.commonFeatures&&toArray(pricingData?.commonFeatures)?.map((item, index) => (
+                    <li key={index} className="mb-2">
+                      {item}
+                    </li>
+                  ))}
+                  {(pricingData&&pricingData?.enterpriseFeatures)&&toArray(pricingData?.enterpriseFeatures)?.map(
                     (item, index) => (
                       <li key={index} className="mb-2">
                         {item}
@@ -184,7 +201,7 @@ const PricingExample = ({ setMonthlyPlan, monthlyPlan, pricingData }) => {
               </div>
               <button
                 type="button"
-                className="p-3 text-indigo text-lg font-bold hover:text-white hover:bg-blue"
+                className="p-3 text-indigo text-lg font-bold hover:text-black hover:bg-gray-200"
               >
                 {pricingData?.enterpriseButton}
               </button>
