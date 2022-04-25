@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
+import ExportConfig from "./export-config";
+import SimpleForm from "./simple-form";
 import { toArray } from "./utils";
 
-
-const PricingExample = ({ setMonthlyPlan, monthlyPlan, pricingData, settings }) => {
+const PricingExample = ({
+  setMonthlyPlan,
+  monthlyPlan,
+  pricingData,
+  settings,
+  formData,
+  onChange,
+  handelSaveForm,
+  error,
+}) => {
+  const [showForm, setShowForm] = useState(false);
   return (
     <div>
       <header className="bg-black mb-8">
@@ -55,6 +66,37 @@ const PricingExample = ({ setMonthlyPlan, monthlyPlan, pricingData, settings }) 
           </ul>
         </nav>
       </header>
+      <div className="w-10/12 container mx-auto px-4 pb-3  leading-normal flex justify-between items-center">
+        <div>
+          <div>
+            <div className="form-check">
+              <input
+                className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                type="checkbox"
+                value={showForm}
+                id="flexCheckChecked"
+                onChange={(e) => setShowForm(e.target.checked)}
+              />
+              <label
+                className="form-check-label inline-block text-gray-800"
+                htmlFor="flexCheckChecked"
+              >
+                Set your config
+              </label>
+            </div>
+          </div>
+        </div>
+        <ExportConfig />
+      </div>
+      {showForm && (
+        <SimpleForm
+          formData={formData}
+          onChange={onChange}
+          handelSaveForm={handelSaveForm}
+          error={error}
+        />
+      )}
+
       <main className="container mx-auto px-4 py-8 leading-normal">
         <h1 className="mb-4 text-center text-4xl md:text-5xl font-light text-grey-darkest">
           {pricingData?.title}
@@ -62,34 +104,34 @@ const PricingExample = ({ setMonthlyPlan, monthlyPlan, pricingData, settings }) 
         <p className="max-w-lg mx-auto mb-6 font-light text-center text-grey-dark text-xl">
           {pricingData?.description}
         </p>
-{
-  settings?.pricingToggle&&        <div className="flex justify-center my-4">
-          <label
-            className="form-check-label inline-block text-gray-800 mx-2"
-            htmlFor=""
-          >
-            Monthly
-          </label>
-          <div className="form-check form-switch">
-            <input
-              className="form-check-input appearance-none w-9 -ml-10 rounded-full float-left h-5 align-top bg-white bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm"
-              type="checkbox"
-              role="switch"
-              id="flexSwitchCheckDefault"
-              checked={!monthlyPlan}
-              onChange={() => {
-                setMonthlyPlan(!monthlyPlan);
-              }}
-            />
+        {settings?.pricingToggle && (
+          <div className="flex justify-center my-4">
+            <label
+              className="form-check-label inline-block text-gray-800 mx-2"
+              htmlFor=""
+            >
+              Monthly
+            </label>
+            <div className="form-check form-switch">
+              <input
+                className="form-check-input appearance-none w-9 -ml-10 rounded-full float-left h-5 align-top bg-white bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm"
+                type="checkbox"
+                role="switch"
+                id="flexSwitchCheckDefault"
+                checked={!monthlyPlan}
+                onChange={() => {
+                  setMonthlyPlan(!monthlyPlan);
+                }}
+              />
+            </div>
+            <label
+              className="form-check-label inline-block text-gray-800 mx-2"
+              htmlFor="flexSwitchCheckDefault"
+            >
+              Yearly
+            </label>
           </div>
-          <label
-            className="form-check-label inline-block text-gray-800 mx-2"
-            htmlFor="flexSwitchCheckDefault"
-          >
-            Yearly
-          </label>
-        </div>
-      }
+        )}
         {/* pricing cards container */}
         <div className="flex flex-wrap -mx-2 mb-8 justify-center">
           {/* Single card */}
@@ -109,16 +151,19 @@ const PricingExample = ({ setMonthlyPlan, monthlyPlan, pricingData, settings }) 
                 </p>
                 <strong>Includes:</strong>
                 <ul className="list-reset mb-4">
-                {pricingData?.commonFeatures&&toArray(pricingData?.commonFeatures)?.map((item, index) => (
-                    <li key={index} className="mb-2">
-                      {item}
-                    </li>
-                  ))}
-                  {(pricingData&&pricingData?.freeFeatures)&&toArray(pricingData?.freeFeatures)?.map((item, index) => (
-                    <li key={index} className="mb-2">
-                      {item}
-                    </li>
-                  ))}
+                  {pricingData?.commonFeatures &&
+                    toArray(pricingData?.commonFeatures)?.map((item, index) => (
+                      <li key={index} className="mb-2">
+                        {item}
+                      </li>
+                    ))}
+                  {pricingData &&
+                    pricingData?.freeFeatures &&
+                    toArray(pricingData?.freeFeatures)?.map((item, index) => (
+                      <li key={index} className="mb-2">
+                        {item}
+                      </li>
+                    ))}
                 </ul>
               </div>
               <button
@@ -147,16 +192,19 @@ const PricingExample = ({ setMonthlyPlan, monthlyPlan, pricingData, settings }) 
                 </p>
                 <strong>Includes:</strong>
                 <ul className="list-reset mb-4">
-                {pricingData?.commonFeatures&&toArray(pricingData?.commonFeatures)?.map((item, index) => (
-                    <li key={index} className="mb-2">
-                      {item}
-                    </li>
-                  ))}
-                  {(pricingData&&pricingData?.proFeatures)&&toArray(pricingData?.proFeatures)?.map((item, index) => (
-                    <li key={index} className="mb-2">
-                      {item}
-                    </li>
-                  ))}
+                  {pricingData?.commonFeatures &&
+                    toArray(pricingData?.commonFeatures)?.map((item, index) => (
+                      <li key={index} className="mb-2">
+                        {item}
+                      </li>
+                    ))}
+                  {pricingData &&
+                    pricingData?.proFeatures &&
+                    toArray(pricingData?.proFeatures)?.map((item, index) => (
+                      <li key={index} className="mb-2">
+                        {item}
+                      </li>
+                    ))}
                 </ul>
               </div>
               <button
@@ -185,18 +233,21 @@ const PricingExample = ({ setMonthlyPlan, monthlyPlan, pricingData, settings }) 
                 </p>
                 <strong>Includes:</strong>
                 <ul className="list-reset mb-4">
-                {pricingData?.commonFeatures&&toArray(pricingData?.commonFeatures)?.map((item, index) => (
-                    <li key={index} className="mb-2">
-                      {item}
-                    </li>
-                  ))}
-                  {(pricingData&&pricingData?.enterpriseFeatures)&&toArray(pricingData?.enterpriseFeatures)?.map(
-                    (item, index) => (
+                  {pricingData?.commonFeatures &&
+                    toArray(pricingData?.commonFeatures)?.map((item, index) => (
                       <li key={index} className="mb-2">
                         {item}
                       </li>
-                    )
-                  )}
+                    ))}
+                  {pricingData &&
+                    pricingData?.enterpriseFeatures &&
+                    toArray(pricingData?.enterpriseFeatures)?.map(
+                      (item, index) => (
+                        <li key={index} className="mb-2">
+                          {item}
+                        </li>
+                      )
+                    )}
                 </ul>
               </div>
               <button
