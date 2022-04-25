@@ -94,7 +94,7 @@ function App() {
 
   useEffect(() => {
     const data = getDataAsync(
-      monthlyPlan ? dataTofetch.mnodeId : formData.ynodeId
+      monthlyPlan ? dataTofetch.mnodeId : dataTofetch.ynodeId
     );
     data
       .then((res) => {
