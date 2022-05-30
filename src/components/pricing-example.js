@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import ExportConfig from "./export-config";
 import SimpleForm from "./simple-form";
-import { toArray } from "./utils";
 
 const PricingExample = ({
   setMonthlyPlan,
@@ -152,14 +151,14 @@ const PricingExample = ({
                 <strong>Includes:</strong>
                 <ul className="list-reset mb-4">
                   {pricingData?.commonFeatures &&
-                    toArray(pricingData?.commonFeatures)?.map((item, index) => (
+                    pricingData?.commonFeatures?.map((item, index) => (
                       <li key={index} className="mb-2">
                         {item}
                       </li>
                     ))}
                   {pricingData &&
                     pricingData?.freeFeatures &&
-                    toArray(pricingData?.freeFeatures)?.map((item, index) => (
+                    pricingData?.freeFeatures?.map((item, index) => (
                       <li key={index} className="mb-2">
                         {item}
                       </li>
@@ -193,14 +192,14 @@ const PricingExample = ({
                 <strong>Includes:</strong>
                 <ul className="list-reset mb-4">
                   {pricingData?.commonFeatures &&
-                    toArray(pricingData?.commonFeatures)?.map((item, index) => (
+                    pricingData?.commonFeatures?.map((item, index) => (
                       <li key={index} className="mb-2">
                         {item}
                       </li>
                     ))}
                   {pricingData &&
                     pricingData?.proFeatures &&
-                    toArray(pricingData?.proFeatures)?.map((item, index) => (
+                    pricingData?.proFeatures?.map((item, index) => (
                       <li key={index} className="mb-2">
                         {item}
                       </li>
@@ -234,20 +233,18 @@ const PricingExample = ({
                 <strong>Includes:</strong>
                 <ul className="list-reset mb-4">
                   {pricingData?.commonFeatures &&
-                    toArray(pricingData?.commonFeatures)?.map((item, index) => (
+                    pricingData?.commonFeatures?.map((item, index) => (
                       <li key={index} className="mb-2">
                         {item}
                       </li>
                     ))}
                   {pricingData &&
                     pricingData?.enterpriseFeatures &&
-                    toArray(pricingData?.enterpriseFeatures)?.map(
-                      (item, index) => (
-                        <li key={index} className="mb-2">
-                          {item}
-                        </li>
-                      )
-                    )}
+                    pricingData?.enterpriseFeatures?.map((item, index) => (
+                      <li key={index} className="mb-2">
+                        {item}
+                      </li>
+                    ))}
                 </ul>
               </div>
               <button

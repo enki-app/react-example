@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PricingExample from "./components/pricing-example";
 import SimpleForm from "./components/simple-form";
-import EnkiSdk from "enki-sdk";
+import KonfigsSdk from "konfigs-sdk";
 import { jsonParser } from "./components/utils";
 
 function App() {
@@ -20,13 +20,13 @@ function App() {
     mnodeId: "",
   });
   const [dataTofetch, setDataTofetch] = useState({
-    apiKey: "744e9338-f8b0-4348-9fae-c6e6031dcda0",
-    applicationID: "694fd052-cffe-4a42-ba53-222fe0c9fc35",
-    enodeId: "96d8a793-ab79-4719-bb08-4229dc375367",
-    ynodeId: "84c2469a-51b8-4f51-a60b-61e046a878b9",
-    mnodeId: "410593bf-acac-4064-9ac7-2dafc4af3e0b",
+    apiKey: "f34a8f59-f480-4d21-92af-73a4e1e13a44",
+    applicationID: "e8675af9-4437-4a9e-80e3-0722fa895472",
+    enodeId: "0c9aae55-9333-414f-b2ba-e255d563f799",
+    ynodeId: "e1b57648-111a-4e49-ab22-fc6a1f6ef701",
+    mnodeId: "76313e34-14da-472f-82f0-42defbf35efb",
   });
-  const enkiSdk = new EnkiSdk(dataTofetch.apiKey, dataTofetch.applicationID);
+  const enkiSdk = new KonfigsSdk(dataTofetch.apiKey, dataTofetch.applicationID);
 
   const handelSaveForm = async () => {
     await setDataTofetch(formData);
@@ -57,6 +57,7 @@ function App() {
       if (settings?.defaultSubscription === "monthly") {
         getDataAsync(dataTofetch.mnodeId)
           .then((data) => {
+            console.log("data", data);
             setPricingData(data);
             setMonthlyPlan(true);
             setError(false);
