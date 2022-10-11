@@ -20,14 +20,18 @@ function App() {
     mnodeId: "",
   });
   const [dataTofetch, setDataTofetch] = useState({
-    apiKey: "f34a8f59-f480-4d21-92af-73a4e1e13a44",
-    applicationID: "e8675af9-4437-4a9e-80e3-0722fa895472",
-    enodeId: "0c9aae55-9333-414f-b2ba-e255d563f799",
-    ynodeId: "e1b57648-111a-4e49-ab22-fc6a1f6ef701",
-    mnodeId: "76313e34-14da-472f-82f0-42defbf35efb",
+    apiKey: "ea576068-0380-4ddd-a85b-8b92f6faa631",
+    applicationID: "2ec391ec-0edf-403e-8144-9397537d31c0",
+    enodeId: "0eb10f5d-6e0c-420a-b0c0-1159cd204bfe",
+    ynodeId: "23a26122-751c-4be8-b066-728fc3cc2b7b",
+    mnodeId: "cd66286d-339c-4b75-8dca-709f6935d1f6",
   });
-  const enkiSdk = new KonfigsSdk(dataTofetch.apiKey, dataTofetch.applicationID);
-
+  const enkiSdk = new KonfigsSdk(
+    dataTofetch.apiKey,
+    dataTofetch.applicationID,
+    "PROD",
+    "https://api.konfigs.io/graphql"
+  );
   const handelSaveForm = async () => {
     await setDataTofetch(formData);
     const initialData = getDataAsync(dataTofetch.enodeId);
